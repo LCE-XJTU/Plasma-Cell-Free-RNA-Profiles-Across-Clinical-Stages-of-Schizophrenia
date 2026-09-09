@@ -104,7 +104,6 @@ ylim_min <- -max_neg * 1.25
 
 comb_stats <- comb_stats %>%
   mutate(
-    # 修复边界：N_up=0时不使用 N_up/2
     Y_up_label = case_when(
       N_up == 0 ~ NA_real_,
       N_discordant > 0 ~ N_up / 2,
