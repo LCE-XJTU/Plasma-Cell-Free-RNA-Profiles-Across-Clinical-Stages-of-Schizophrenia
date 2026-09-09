@@ -61,7 +61,7 @@ for(pl in pl_list){
       color = "black"
     ) +
     theme(
-      plot.title = element_text(hjust = 0.5, face = "bold") # 标题居中
+      plot.title = element_text(hjust = 0.5, face = "bold") 
     )
   print(p_pca_expr)
   ggsave(paste0(pl,"_Gene_Expression_PCA.pdf"), p_pca_expr, width = 5, height = 4)
@@ -564,17 +564,15 @@ plot_heatmap <- Heatmap(as.matrix(plot_df), name = "AUC",
                         
                         show_row_names = TRUE, 
                         row_names_gp = gpar(fontsize = 11),    
-                        row_names_side = "right",       # ✅ 纵轴模型名称放到右边
+                        row_names_side = "right",      
                         
                         column_split = factor(colnames(plot_df), levels = colnames(plot_df)), 
                         column_title = NULL,
-                        
-                        # AUC色条图例参数：横向摆放
                         heatmap_legend_param = list(
                           title_gp = gpar(fontsize = 12, fontface = "bold"), 
                           labels_gp = gpar(fontsize = 10),
-                          legend_direction = "horizontal", # 图例横向
-                          legend_width = unit(4, "cm")     # 横向图例长度
+                          legend_direction = "horizontal",
+                          legend_width = unit(4, "cm")     
                         ),
                         
                         cell_fun = function(j, i, x, y, w, h, col) { 
