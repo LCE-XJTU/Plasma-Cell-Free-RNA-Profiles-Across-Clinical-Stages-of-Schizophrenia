@@ -3,7 +3,6 @@
 # ============================================================================
 
 work_dir <- "Figure2"
-setwd(work_dir)
 OUT <- work_dir 
 
 suppressPackageStartupMessages({
