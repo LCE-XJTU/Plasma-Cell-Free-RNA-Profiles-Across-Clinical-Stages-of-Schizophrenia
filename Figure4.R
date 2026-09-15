@@ -7,11 +7,11 @@ suppressPackageStartupMessages({
 })
 
 fdr_star <- function(p) ifelse(p < 0.001, "***", ifelse(p < 0.01, "**", ifelse(p < 0.05, "*", "")))
-comps <- c("SCZ vs HC","FES vs HC","ECS vs HC","LTS vs HC","LTS-MDI vs HC","LTS-nMDI vs HC", "LTS-MDI vs LTS-nMDI")
+comps <- c("SCZ vs HC","FES vs HC","MCS vs HC","LTS vs HC","LTS-MDI vs HC","LTS-nMDI vs HC", "LTS-MDI vs LTS-nMDI")
 comp_groups <- list(
   "SCZ vs HC"=c("SCZ","HC"),
   "FES vs HC"=c("FES","HC"),
-  "ECS vs HC"=c("ECS","HC"),
+  "MCS vs HC"=c("MCS","HC"),
   "LTS vs HC"=c("LTS","HC"),
   "LTS-MDI vs HC"=c("LTS-MDI","HC"),
   "LTS-nMDI vs HC"=c("LTS-nMDI","HC"),
@@ -20,7 +20,7 @@ comp_groups <- list(
 comp_col <- c(
   "SCZ vs HC"="#c82423",
   "FES vs HC"="#E31A1C",
-  "ECS vs HC"="#FF7F00",
+  "MCS vs HC"="#FF7F00",
   "LTS vs HC"="#33A02C",
   "LTS-MDI vs HC"="#1F78B4",
   "LTS-nMDI vs HC"="#984EA3",
@@ -54,7 +54,7 @@ a_list <- list()
 for (c in comps) {
   grp <- strsplit(c, " vs ")[[1]]
   folder_name <- paste(rev(grp), collapse = " vs ")
-  path <- file.path(BASE,"brain","BayesPrism",gsub(" vs ","  ",folder_name),"diff_analysis_result.xlsx")
+  path <- file.path("diff_analysis_result.xlsx")
   if (!file.exists(path)) next
   df <- read_excel(path)
   df$Comparison <- c
@@ -130,11 +130,11 @@ ggsave("PA.pdf", pA, width = 9, height = 7, dpi = 300)
 # ============================================================================
 
 fdr_star <- function(p) ifelse(p < 0.001, "***", ifelse(p < 0.01, "**", ifelse(p < 0.05, "*", "")))
-comps <- c("SCZ vs HC","FES vs HC","ECS vs HC","LTS vs HC","LTS-MDI vs HC","LTS-nMDI vs HC", "LTS-MDI vs LTS-nMDI")
+comps <- c("SCZ vs HC","FES vs HC","MCS vs HC","LTS vs HC","LTS-MDI vs HC","LTS-nMDI vs HC", "LTS-MDI vs LTS-nMDI")
 comp_groups <- list(
   "SCZ vs HC"=c("SCZ","HC"),
   "FES vs HC"=c("FES","HC"),
-  "ECS vs HC"=c("ECS","HC"),
+  "MCS vs HC"=c("MCS","HC"),
   "LTS vs HC"=c("LTS","HC"),
   "LTS-MDI vs HC"=c("LTS-MDI","HC"),
   "LTS-nMDI vs HC"=c("LTS-nMDI","HC"),
@@ -143,7 +143,7 @@ comp_groups <- list(
 comp_col <- c(
   "SCZ vs HC"="#c82423",
   "FES vs HC"="#E31A1C",
-  "ECS vs HC"="#FF7F00",
+  "MCS vs HC"="#FF7F00",
   "LTS vs HC"="#33A02C",
   "LTS-MDI vs HC"="#1F78B4",
   "LTS-nMDI vs HC"="#984EA3",
@@ -183,7 +183,7 @@ a_list <- list()
 for (c in comps) {
   grp <- strsplit(c, " vs ")[[1]]
   folder_name <- paste(rev(grp), collapse = " vs ")
-  path <- file.path(BASE,"blood","BayesPrism",gsub(" vs ","  ",folder_name),"diff_analysis_result.xlsx")
+  path <- file.path("diff_analysis_result.xlsx")
   if (!file.exists(path)) next
   df <- read_excel(path)
   df$Comparison <- c
@@ -272,7 +272,7 @@ suppressPackageStartupMessages({
 data_dir <- "Figure4"
 brain_file <- file.path(data_dir, "brain_cell_type.txt")
 blood_file <- file.path(data_dir, "blood_cell_type.txt")
-meta_file <- file.path(data_dir, "metadate.txt")
+meta_file <- file.path(data_dir, "metadata.txt")
 OUT <- file.path(data_dir)
 meta <- read.table(meta_file, header = TRUE, sep = "\t",
                    comment.char = "", stringsAsFactors = FALSE)
