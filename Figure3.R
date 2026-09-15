@@ -71,7 +71,6 @@ for(pl in pl_list){
 ############################################################
 ## Figure 3B
 ############################################################
-
 pl_list=c("HC  LTS-MDI","HC  LTS-nMDI","LTS-nMDI  LTS-MDI")
 
 for(pl in pl_list){
