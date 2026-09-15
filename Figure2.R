@@ -21,8 +21,8 @@ matrix_file <- file.path("fig2A_upset_matrix_new.csv")
 m <- read.csv(matrix_file, check.names = FALSE, stringsAsFactors = FALSE)
 rownames(m) <- m$gene
 
-comp_labels <- c("SCZ vs HC","FES vs HC", "ECS vs HC", "LTS vs HC")
-comp_pairs <- c("HC  SCZ","HC  FES", "HC  ECS", "HC  LTS")
+comp_labels <- c("SCZ vs HC","FES vs HC", "MCS vs HC", "LTS vs HC")
+comp_pairs <- c("HC  SCZ","HC  FES", "HC  MCS", "HC  LTS")
 
 mat <- as.matrix(m[, comp_labels, drop = FALSE])
 stopifnot(colnames(mat) == comp_labels)
@@ -141,7 +141,7 @@ p_bar <- ggplot(comb_stats, aes(x = Comb)) +
     plot.margin = margin(5, 5, 0, 5),
     panel.grid = element_blank()
   )
-dot_levels <- c("SCZ vs HC", "FES vs HC", "ECS vs HC", "LTS vs HC")
+dot_levels <- c("SCZ vs HC", "FES vs HC", "MCS vs HC", "LTS vs HC")
 n_sets <- length(comp_labels)
 dot_data <- data.frame()
 
@@ -257,7 +257,7 @@ module_info <- tibble::tribble(
 stage_info <- tibble::tribble(
   ~Comparison, ~stage,       ~y_offset,
   "StageFES",  "FES vs HC",  0.10,
-  "StageECS",  "MCS vs HC",  0.00,
+  "StageMCS",  "MCS vs HC",  0.00,
   "StageLTS",  "LTS vs HC", -0.10
 )
 
@@ -417,8 +417,8 @@ ggsave(
 nes_wide <-  read_excel("fig2C_heatmap.xlsx", sheet = "NES")
 padj_wide <-  read_excel("fig2C_heatmap.xlsx",  sheet = "Padj")
 
-compare_cols <- c("Overall SCZ vs HC","FES vs HC","ECS vs HC","LTS vs HC")
-comp_labels <- c("Overall_SCZ","FES","ECS","LTS")
+compare_cols <- c("Overall SCZ vs HC","FES vs HC","MCS vs HC","LTS vs HC")
+comp_labels <- c("Overall_SCZ","FES","MCS","LTS")
 
 nes_long <- nes_wide %>%
   dplyr::select(pathway=Description, Theme, all_of(compare_cols)) %>%
@@ -447,7 +447,7 @@ df_long <- inner_join(
     comp_label = case_when(
       comparison == "Overall SCZ vs HC" ~ "Overall_SCZ",
       comparison == "FES vs HC" ~ "FES",
-      comparison == "ECS vs HC" ~ "ECS",
+      comparison == "MCS vs HC" ~ "MCS",
       comparison == "LTS vs HC" ~ "LTS"
     ),
     theme = Theme
@@ -477,7 +477,7 @@ suppressPackageStartupMessages({
 d <- read.csv("fig1d_long.csv",
               fileEncoding = "UTF-8", stringsAsFactors = FALSE,
               na.strings = c("None", "NA", ""))
-d <- subset(d,comparison%in%c( "FES","ECS","LTS"))
+d <- subset(d,comparison%in%c( "FES","MCS","LTS"))
 
 d <- d %>%
   group_by(pathway) %>%
@@ -502,7 +502,7 @@ path_order <- unique(d$pathway)
 d$pathway  <- factor(d$pathway, levels = rev(path_order))
 
 comp_disp <- c(FES = "FES vs HC",
-               ECS = "ECS vs HC",
+               MCS = "MCS vs HC",
                LTS  = "LTS vs HC")
 d$comp_label <- comp_disp[d$comparison]
 d$comparison <- factor(d$comp_label, levels = comp_disp)
@@ -511,12 +511,12 @@ nes_lim <- ceiling(max(abs(d$NES), na.rm = TRUE))
 
 comp_levels <- c(
   "FES vs HC",
-  "ECS vs HC",
+  "MCS vs HC",
   "LTS vs HC")
 
 comp_color <- c(
   "FES vs HC"         = "#E31A1C",
-  "ECS vs HC"         = "#FF7F00",
+  "MCS vs HC"         = "#FF7F00",
   "LTS vs HC"          = "#33A02C")
 
 type_color <- c(
